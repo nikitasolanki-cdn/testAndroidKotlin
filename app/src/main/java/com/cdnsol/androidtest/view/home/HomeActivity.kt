@@ -11,16 +11,18 @@ import com.cdnsol.androidtest.databinding.ActivityHomeBinding
 import com.cdnsol.androidtest.di.component.ActivityComponent
 import com.cdnsol.androidtest.di.component.DaggerActivityComponent
 import com.cdnsol.androidtest.di.module.ActivityModule
+import com.cdnsol.androidtest.model.response.UserListData
 import com.cdnsol.androidtest.utils.AndroiddUtils
 import com.cdnsol.androidtest.view.base.BaseActivity
 import com.cdnsol.androidtest.view.base.GlobalViewModelFactory
 import javax.inject.Inject
 
+
 class HomeActivity : BaseActivity() {
     @Inject
     lateinit var factory: GlobalViewModelFactory<HomeViewModel>
     private lateinit var homeBinding: ActivityHomeBinding
-    private lateinit var adapter : UsersListAdapter
+    private lateinit var adapter: UsersListAdapter
 
     //ViewModel
     val viewModel: HomeViewModel by lazy {
@@ -40,14 +42,13 @@ class HomeActivity : BaseActivity() {
         homeBinding.viewModel = viewModel
         initialviews()
         setObservers()
+        searchUser()
 
     }
 
     fun initialviews() {
         homeBinding.rvUsers.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        adapter = UsersListAdapter(this, viewModel)
-        homeBinding.rvUsers.adapter = adapter
         viewModel.getUsersList()
     }
 
@@ -63,7 +64,8 @@ class HomeActivity : BaseActivity() {
         })
         viewModel.userList.observe(this, {
             it?.let {
-               adapter.notifyDataSetChanged()
+                adapter = UsersListAdapter(this, viewModel.userList.value!!)
+                homeBinding.rvUsers.adapter = adapter
             }
         })
         viewModel.showErrorCode.observe(this, Observer { code ->
@@ -84,5 +86,39 @@ class HomeActivity : BaseActivity() {
                 showToast(it)
             }
         })
+    }
+
+    private fun searchUser() {
+        homeBinding.searchViewUsers.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filter(newText.toString())
+                return true
+            }
+        })
+
+
+    }
+
+    fun filter(text: String?) {
+        val temp: ArrayList<UserListData> = ArrayList()
+        if(text != null && !text.isEmpty()) {
+            for (d in viewModel.userList.value!!) {
+                //or use .equal(text) with you want equal match
+                //use .toLowerCase() for better matches
+                if (d.login!!.lowercase().contains(text.lowercase())) {
+                    temp.add(d)
+                }
+            }
+            //update recyclerview
+            adapter.updateList(temp)
+        }else {
+            adapter.updateList(viewModel.userList.value!!)
+        }
     }
 }
