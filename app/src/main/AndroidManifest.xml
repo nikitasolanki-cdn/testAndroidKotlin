@@ -16,7 +16,14 @@
         android:theme="@style/Theme.AndroidTest"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.userDetail.UserDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorPortrait"
+            />
+        <activity
             android:name=".view.home.HomeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorPortrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"/>
     </application>
 
 </manifest>
