@@ -6,6 +6,7 @@ import com.cdnsol.androidtest.di.module.ActivityModule
 import com.cdnsol.androidtest.di.qualifier.ObserverThread
 import com.cdnsol.androidtest.di.qualifier.SubscriberThread
 import com.cdnsol.androidtest.di.scope.ActivityScope
+import com.cdnsol.androidtest.model.repository.RepositoryInterface
 import com.cdnsol.androidtest.view.home.HomeActivity
 import dagger.Component
 import io.reactivex.Scheduler
@@ -14,7 +15,7 @@ import io.reactivex.Scheduler
 @ActivityScope
 @Component(dependencies = arrayOf(AppComponent::class) , modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
-
+    fun repository(): RepositoryInterface
     @ObserverThread
     fun observerThread(): Scheduler
     @SubscriberThread

@@ -5,7 +5,9 @@ import android.content.SharedPreferences
 import com.cdnsol.androidtest.TestApp
 import com.cdnsol.androidtest.di.qualifier.ObserverThread
 import com.cdnsol.androidtest.di.qualifier.SubscriberThread
-import com.google.gson.Gson
+import com.cdnsol.androidtest.model.repository.Repository
+import com.cdnsol.androidtest.model.repository.RepositoryInterface
+import com.cdnsol.androidtest.service.ApiInterface
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -37,10 +39,10 @@ class AppModule(val app: TestApp) {
     @ObserverThread
     fun provideObserverThread(): Scheduler = AndroidSchedulers.mainThread()
 
-   /* @Provides
+    @Provides
     @Singleton
     fun provideRepository(apiInterface: ApiInterface): RepositoryInterface = Repository(apiInterface)
-*/
+
     @Provides
     @Singleton
     fun provideSharedPreference(context: Context): SharedPreferences =

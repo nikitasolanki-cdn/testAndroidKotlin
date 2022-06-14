@@ -19,13 +19,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/iv_user_img"
                 android:layout_width="@dimen/_70sdp"
                 android:layout_height="@dimen/_70sdp"
-                app:image="@{userListData.avatarUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 imageFromUrl="@{userListData.avatarUrl}"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -6,6 +6,7 @@ import com.cdnsol.androidtest.di.module.AppModule
 import com.cdnsol.androidtest.di.module.NetworkModule
 import com.cdnsol.androidtest.di.qualifier.ObserverThread
 import com.cdnsol.androidtest.di.qualifier.SubscriberThread
+import com.cdnsol.androidtest.model.repository.RepositoryInterface
 import dagger.Component
 import io.reactivex.Scheduler
 import javax.inject.Singleton
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun context(): Context
     fun inject(app: TestApp)
-
+    fun repository(): RepositoryInterface
     @ObserverThread
     fun observerThread(): Scheduler
 

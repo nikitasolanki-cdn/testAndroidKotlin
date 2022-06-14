@@ -16,7 +16,7 @@ class GlobalViewModelFactory<T : ViewModel> @Inject constructor(val viewModel: T
        val  TAG:String  = "GlobalViewModelFactory"
    }
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         Log.e(TAG,"created")
         return viewModel as T
     }
