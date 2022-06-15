@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+        <variable
+            name="userListData"
+            type="com.cdnsol.androidtest.model.response.UserListData" />
+    </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -25,6 +31,7 @@
                 android:layout_height="@dimen/_70sdp"
                 android:clickable="false"
                 android:focusable="false"
+                imageFromUrl="@{userListData.avatarUrl}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,8 +42,9 @@
                 android:layout_marginStart="@dimen/_5sdp"
                 android:clickable="false"
                 android:focusable="false"
+                android:text="@{userListData.login}"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/black"
+                colorText="@{userListData._visited}"
                 app:layout_constraintStart_toEndOf="@+id/iv_user_img"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
