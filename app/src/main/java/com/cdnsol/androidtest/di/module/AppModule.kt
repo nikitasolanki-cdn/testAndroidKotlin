@@ -8,6 +8,8 @@ import com.cdnsol.androidtest.di.qualifier.SubscriberThread
 import com.cdnsol.androidtest.model.repository.Repository
 import com.cdnsol.androidtest.model.repository.RepositoryInterface
 import com.cdnsol.androidtest.service.ApiInterface
+import com.cdnsol.androidtest.utils.SharedPreferenceUtil
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -48,8 +50,8 @@ class AppModule(val app: TestApp) {
     fun provideSharedPreference(context: Context): SharedPreferences =
         context.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
 
-   /* @Provides
+    @Provides
     @Singleton
     fun providePreference(preference: SharedPreferences, gson: Gson): SharedPreferenceUtil =
-        SharedPreferenceUtil(preference, gson)*/
+        SharedPreferenceUtil(preference, gson)
 }

@@ -1,5 +1,6 @@
 package com.cdnsol.androidtest.view.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,18 +12,28 @@ import com.cdnsol.androidtest.databinding.ActivityHomeBinding
 import com.cdnsol.androidtest.di.component.ActivityComponent
 import com.cdnsol.androidtest.di.component.DaggerActivityComponent
 import com.cdnsol.androidtest.di.module.ActivityModule
+import com.cdnsol.androidtest.model.response.UserDetailData
 import com.cdnsol.androidtest.model.response.UserListData
 import com.cdnsol.androidtest.utils.AndroiddUtils
+import com.cdnsol.androidtest.utils.SharedPreferenceUtil
 import com.cdnsol.androidtest.view.base.BaseActivity
 import com.cdnsol.androidtest.view.base.GlobalViewModelFactory
+import java.util.regex.Pattern
 import javax.inject.Inject
 
-
+/*
+* Launch Activity for the list of users
+*
+* */
 class HomeActivity : BaseActivity() {
+    @Inject
+    lateinit var preferenceUtil: SharedPreferenceUtil
+
     @Inject
     lateinit var factory: GlobalViewModelFactory<HomeViewModel>
     private lateinit var homeBinding: ActivityHomeBinding
     private lateinit var adapter: UsersListAdapter
+
 
     //ViewModel
     val viewModel: HomeViewModel by lazy {
@@ -50,6 +61,8 @@ class HomeActivity : BaseActivity() {
         homeBinding.rvUsers.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         viewModel.getUsersList()
+
+
     }
 
     fun setObservers() {
@@ -64,7 +77,7 @@ class HomeActivity : BaseActivity() {
         })
         viewModel.userList.observe(this, {
             it?.let {
-                adapter = UsersListAdapter(this, viewModel.userList.value!!)
+                adapter = UsersListAdapter(this, it)
                 homeBinding.rvUsers.adapter = adapter
             }
         })
@@ -101,24 +114,30 @@ class HomeActivity : BaseActivity() {
                 return true
             }
         })
-
-
     }
 
     fun filter(text: String?) {
-        val temp: ArrayList<UserListData> = ArrayList()
-        if(text != null && !text.isEmpty()) {
-            for (d in viewModel.userList.value!!) {
+        val filterList: ArrayList<UserListData> = ArrayList()
+        if (text != null && !text.isEmpty()) {
+            for (user in viewModel.userList.value!!) {
                 //or use .equal(text) with you want equal match
                 //use .toLowerCase() for better matches
-                if (d.login!!.lowercase().contains(text.lowercase())) {
-                    temp.add(d)
+                if (user.login!!.lowercase().contains(text.lowercase())) {
+                    filterList.add(user)
                 }
             }
             //update recyclerview
-            adapter.updateList(temp)
-        }else {
+            adapter.updateList(filterList)
+        } else {
             adapter.updateList(viewModel.userList.value!!)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 99)
+            if (adapter != null)
+                adapter.notifyDataSetChanged()
+    }
+
 }

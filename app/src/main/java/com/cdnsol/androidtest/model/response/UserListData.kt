@@ -21,6 +21,6 @@ data class UserListData(
     @SerializedName("events_url") var eventsUrl: String? = null,
     @SerializedName("received_events_url") var receivedEventsUrl: String? = null,
     @SerializedName("type") var type: String? = null,
-    @SerializedName("site_admin") var siteAdmin: Boolean? = null
-
+    @SerializedName("site_admin") var siteAdmin: Boolean? = null,
+    @SerializedName("is_visited") var is_visited: Boolean = false
 )

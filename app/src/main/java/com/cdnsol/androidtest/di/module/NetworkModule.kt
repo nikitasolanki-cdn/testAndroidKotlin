@@ -2,7 +2,7 @@ package com.cdnsol.androidtest.di.module
 
 
 import android.content.Context
-import androidx.databinding.ktx.BuildConfig
+import com.cdnsol.androidtest.BuildConfig
 import com.cdnsol.androidtest.service.ApiInterface
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
