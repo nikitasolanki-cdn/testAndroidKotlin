@@ -1,0 +1,54 @@
+Android Kotlin Developer Case Study
+
+Brancehs Created:
+1. master
+2. developement
+3. users_list_workspace
+4. detail_screen
+
+Used component:
+• MVVM
+• Dagger 2
+• Data Binding and Binding adapters
+• Github
+• Retrofit
+• Glide
+• Gson
+• SHaredPreferences
+
+We have developed sample application using Android-Kotlin with component above,
+we used two different activity for the different screen.
+Application development used latest MVVM jetpack component for data modeling and populating on UI.
+
+
+
+
+
+-Problem ---------------------------------------------------------------
+A demo application should be developed using the two separate APIs shared below, which can be used
+without authorize with the Github Rest API. The application must be developed with Kotlin.
+APIs:
+https://api.github.com/users
+https://api.github.com/users/{login}
+The following technologies and version control systems are expected to be used while the project is
+being developed.
+• MVVM
+• Dagger 2
+• Data Binding
+• Github or Bitbucket
+General summary of the application:
+When the app is first opened, Git users are listed with their profile photos and username information.
+There is a search bar at the top of the page.
+If a particular user is wanted to be searched, the first the user in the search is listed instead of the
+loaded data.
+Clicking on one of the listed users is directed to the detail page.
+On the detail page All available data provided by the API is displayed on the screen.
+When the application is re-entered, the user whose last detail was looked at is marked as different from
+the others if it is in the list (it can be shown in a different color).
+Important points:
+Registering the previously detailed user with SharedPreference and from there reading is expected.
+In addition; Dependency of the SharedPreference class where it will be used
+It is expected to be injected with Injection.
+In addition, for each developed feature, working with separate branches and pushing to Github or
+Bitbucket needs to be done. Commits should be descriptive and clear.
+*The design of the project can be changed according to your decision.
